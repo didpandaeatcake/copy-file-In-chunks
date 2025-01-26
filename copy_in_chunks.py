@@ -1,7 +1,7 @@
 import os
 import argparse
 
-def copy_large_file_resumable(source_path, destination_path, chunk_size=1024 * 1024 * 50):
+def copy_large_file_resumable(source_path, destination_path, chunk_size=50):
     try:
         
         print(f"Source path: {source_path}")
@@ -27,7 +27,7 @@ def copy_large_file_resumable(source_path, destination_path, chunk_size=1024 * 1
             with open(destination_path, "ab" if copied_bytes else "wb") as destination_file:
                 source_file.seek(copied_bytes)  # move to the last copied byte
                 while True:
-                    chunk = source_file.read(chunk_size)
+                    chunk = source_file.read(1024 * 1024 * chunk_size)
                     if not chunk:
                         break
                     destination_file.write(chunk)
@@ -50,7 +50,7 @@ def main():
     parser = argparse.ArgumentParser(description="Copy large files in chunks with resumable support.")
     parser.add_argument("source", help="Path to the source file.")
     parser.add_argument("destination", help="Path to the destination file.")
-    parser.add_argument("--chunk_size", type=int, default=1024 * 1024 * 50,
+    parser.add_argument("--chunk_size", type=int, default=50,
                         help="Chunk size in bytes (default: 50MB).")
 
     args = parser.parse_args()
