@@ -18,12 +18,21 @@ python copy_in_chunks.py "C:\testfile.txt" "X:\testfile.txt"  --chunk_size 100
 
 ```
 
+copy_in_chunks_improved.py a little bit improved version which shows progress bar when copying
+
+just pip install tqdm
+
+```
+pip install tqdm
+```
+
 ## How Chunked Copying Works
 
 
 1. The file is divided into smaller chunks (e.g., 50MB, 100MB).
 2. Each chunk is transferred individually.
 3. The chunks are reassembled at the destination to recreate the original file.
+4. Even if copying is interrupted, you can resume by running the script again.
 
 ---
 
